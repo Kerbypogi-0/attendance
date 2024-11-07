@@ -1,0 +1,223 @@
+/* Basic styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 300px;
+  background: #1E2A3A;
+  color: white;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+  box-sizing: border-box; /* Ensure padding is inside the width */
+  transition: width 0.3s ease;
+}
+
+/* Search Input */
+#searchInput {
+  width: calc(100% - 20px); /* Make input fit inside with padding accounted for */
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box; /* Include padding and border inside the width */
+}
+
+/* Ensure form elements inside the sidebar do not overflow */
+.form-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px 0;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+button#removeClassButton {
+  background-color: #dc3545;
+}
+
+button#removeClassButton:hover {
+  background-color: #c82333;
+}
+
+#classList {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.class-item {
+  cursor: pointer;
+  background: #3A4B67;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.class-item:hover {
+  background: #2c3e50;
+}
+
+/* Main content (Attendance) */
+#attendanceContainer {
+  margin-left: 320px;
+  padding: 20px;
+}
+
+/* Table Styles */
+#attendanceTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#attendanceTable th, #attendanceTable td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+/* Buttons for Attendance */
+button.attendance-btn {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+button.attendance-btn:hover {
+  opacity: 0.8;
+}
+
+.acronym {
+  font-weight: bold;
+  margin-left: 10px;
+  padding: 3px 7px;
+  color: white;
+  border-radius: 5px;
+}
+
+button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+#attendanceTable .present {
+  background-color: #28a745;
+}
+
+#attendanceTable .absent {
+  background-color: #dc3545;
+}
+
+#attendanceTable .late {
+  background-color: #ffc107;
+}
+
+#attendanceTable .excused {
+  background-color: #17a2b8;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  /* Make sidebar smaller or hidden */
+  .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+  }
+
+  /* Adjust the content area to be full width */
+  #attendanceContainer {
+      margin-left: 0;
+      padding: 10px;
+  }
+
+  /* Make buttons and form smaller */
+  button {
+      padding: 8px 16px;
+      font-size: 14px;
+  }
+
+  /* Make table cell contents and font size smaller */
+  #attendanceTable th, #attendanceTable td {
+      padding: 8px;
+      font-size: 14px;
+  }
+
+  /* Make search bar and input elements fit */
+  #searchInput {
+      width: 100%;
+      padding: 8px;
+  }
+
+  .form-container input,
+  .form-container button {
+      width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust sidebar to be a collapsible or hidden menu on very small screens */
+  .sidebar {
+      width: 100%;
+      padding: 10px;
+  }
+
+  #attendanceContainer {
+      margin-left: 0;
+      padding: 5px;
+  }
+
+  /* Make buttons and form smaller */
+  button {
+      padding: 6px 12px;
+      font-size: 12px;
+  }
+
+  /* Adjust table font size and cell padding */
+  #attendanceTable th, #attendanceTable td {
+      padding: 6px;
+      font-size: 12px;
+  }
+
+  /* Make input fields smaller */
+  #searchInput {
+      width: 100%;
+      padding: 6px;
+  }
+}
+
+button.remove-btn {
+    background-color: #dc3545;
+    color: white;
+    margin-left: 5px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button.remove-btn:hover {
+    background-color: #c82333;
+}
