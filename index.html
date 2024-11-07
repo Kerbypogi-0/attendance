@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <input type="text" id="searchInput" placeholder="Search Class...">
+        <div class="form-container">
+            <input type="text" id="className" placeholder="Add Class Name">
+            <button id="addClassButton">Add Class</button>
+            <button id="removeClassButton">Remove Class</button>
+        </div>
+        <div id="classList"></div>
+    </div>
+
+    <div id="attendanceContainer">
+        <h2 id="selectedClassName">Class Attendance</h2>
+        <div class="form-container">
+            <input type="text" id="studentName" placeholder="Add Student Name">
+            <button id="addStudentButton">Add Student</button>
+        </div>
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Attendance</th>
+                    <th>Action</th> <!-- New Action column for the Remove button -->
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <!-- Summary Table for Total Performance -->
+        <h2>Attendance Summary</h2>
+        <table id="summaryTable">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Total Absences</th>
+                    <th>Total Late</th>
+                    <th>Total Excused</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
