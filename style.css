@@ -17,7 +17,11 @@ body {
   box-sizing: border-box; /* Ensure padding is inside the width */
   transition: width 0.3s ease;
 }
-
+.form-container {
+  width: 100px;
+  margin-left: 115px;
+  
+}
 /* Search Input */
 #searchInput {
   width: calc(100% - 20px); /* Make input fit inside with padding accounted for */
@@ -29,9 +33,9 @@ body {
 }
 
 /* Ensure form elements inside the sidebar do not overflow */
-.form-container {
+.form-container1 {
   margin-bottom: 20px;
-  display: flex;
+  display:flex;
   flex-direction: column;
 }
 
@@ -220,4 +224,9 @@ button.remove-btn {
 
 button.remove-btn:hover {
     background-color: #c82333;
+}
+
+.attendanceSummary {
+  background-color: #1E2A3A;
+  color:#f1f1f1;
 }
