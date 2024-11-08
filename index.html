@@ -8,11 +8,19 @@
 </head>
 <body>
     <div class="sidebar">
-        <input type="text" id="searchInput" placeholder="Search Class...">
+        <div class="search-container">
+            <!-- Search icon initially -->
+            <img src="magnifying-glass (1).png" alt="Search Icon" id="searchIcon" class="search-icon" />
+            <!-- Loading icon (hidden by default) -->
+            <img src="load.png" alt="Loading Icon" id="loadingIcon" class="loading-icon" />
+            <input type="text" id="searchInput" placeholder="Search Class..." class="hidden-input" />
+        </div>
+        
+        
         <div class="form-container">
             <input type="text" id="className" placeholder="Add Class Name">
             <button id="addClassButton">Add Class</button>
-            <button id="removeClassButton">Remove Class</button>
+            <button id="removeClassButton">Remove</button>
         </div>
         <div id="classList"></div>
     </div>
@@ -32,10 +40,9 @@
                 </tr>
             </thead>
             <tbody></tbody>
-        </table></div>
+        </table>
 
         <!-- Summary Table for Total Performance -->
-         <div class="attendanceSummary">
         <h2>Attendance Summary</h2>
         <table id="summaryTable">
             <thead>
@@ -49,7 +56,11 @@
             <tbody></tbody>
         </table>
     </div>
-    
+    <footer>
+        <p>Created and still enhancing by KerbyPogi Ⓚ</p>
+      </footer>
+      
     <script src="script.js"></script>
 </body>
 </html>
+
