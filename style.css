@@ -17,25 +17,90 @@ body {
   box-sizing: border-box; /* Ensure padding is inside the width */
   transition: width 0.3s ease;
 }
-.form-container {
-  width: 100px;
-  margin-left: 115px;
-  
-}
-/* Search Input */
-#searchInput {
-  width: calc(100% - 20px); /* Make input fit inside with padding accounted for */
-  padding: 10px;
-  margin-bottom: 20px;
+#className {
+  display: block;         /* Ensures it's treated as a block element */
+  margin: 0 auto;         /* Centers the element horizontally */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 300px;
+  height: 20px;
   border-radius: 5px;
-  border: 1px solid #ddd;
-  box-sizing: border-box; /* Include padding and border inside the width */
+}
+#addClassButton {
+  display: block;         /* Ensures it's treated as a block element */
+  margin: 0 auto;         /* Centers the element horizontally */
+  width:90px;
+  height: 30px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+#removeClassButton {
+  display: block;         /* Ensures it's treated as a block element */
+  margin: 0 auto;         /* Centers the element horizontally */
+  width:90px;
+  height: 30px;
+  border-radius: 5px;
 }
 
+
+/* Style the container to align items */
+/* Style the container to align items */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the search icon */
+.search-icon {
+  cursor: pointer;
+  width: 30px;  /* Adjust size of the search icon */
+  height: 30px;
+  transition: transform 0.3s ease-in-out;  /* Optional: smooth transform animation */
+}
+
+/* Style for the loading icon (hidden by default) */
+.loading-icon {
+  display: none;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite; /* Loading spinner animation */
+}
+
+/* Animation for loading icon */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Style for the hidden input field */
+.hidden-input {
+  display: none;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 200px;  /* Adjust width as needed */
+}
+
+/* Focused input field styles */
+#searchInput:focus {
+  border-color: #007BFF;  /* Change border color when focused */
+  outline: none;  /* Remove default outline */
+}
+
+/* Placeholder style */
+#searchInput::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+
 /* Ensure form elements inside the sidebar do not overflow */
-.form-container1 {
+.form-container {
   margin-bottom: 20px;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
@@ -85,7 +150,9 @@ button#removeClassButton:hover {
   margin-left: 320px;
   padding: 20px;
 }
-
+.form-container1 {
+  margin-left: 70px;
+}
 /* Table Styles */
 #attendanceTable {
   width: 100%;
@@ -101,11 +168,11 @@ button#removeClassButton:hover {
 
 /* Buttons for Attendance */
 button.attendance-btn {
-  margin: 0 5px;
-  padding: 5px 10px;
+  margin: 0  6 0 6px;
+  padding: 4px 10px;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 4px;
+  font-size: 10px;
   transition: background 0.3s ease;
 }
 
@@ -127,19 +194,19 @@ button.active {
 }
 
 #attendanceTable .present {
-  background-color: #28a745;
+  background-color:#007bff;
 }
 
 #attendanceTable .absent {
-  background-color: #dc3545;
+  background-color:#007bff;
 }
 
 #attendanceTable .late {
-  background-color: #ffc107;
+  background-color:#007bff;
 }
 
 #attendanceTable .excused {
-  background-color: #17a2b8;
+  background-color:#007bff;
 }
 
 /* Media Queries for Responsiveness */
@@ -226,7 +293,17 @@ button.remove-btn:hover {
     background-color: #c82333;
 }
 
-.attendanceSummary {
-  background-color: #1E2A3A;
-  color:#f1f1f1;
+footer {
+  text-align: center;           /* Center-align the text */
+  padding: 20px;                /* Add padding around the footer */
+  background-color: #333;       /* Set a dark background color */
+  color: white;                 /* Make the text white */
+  font-size: 14px;              /* Set the font size */
+  width: 100%;                  /* Make sure it stretches the full width */
+  position: relative;           /* Default position */
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;                    /* Remove any margin from the paragraph */
 }
