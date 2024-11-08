@@ -300,7 +300,7 @@ footer {
   color: white;                 /* Make the text white */
   font-size: 14px;              /* Set the font size */
   width: 100%;                  /* Make sure it stretches the full width */
-  position: relative;           /* Default position */
+  position: fixed;           /* Default position */
   bottom: 0;
 }
 
