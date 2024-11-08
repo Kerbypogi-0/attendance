@@ -3,12 +3,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const removeClassButton = document.getElementById("removeClassButton");
     const classList = document.getElementById("classList");
     const classNameInput = document.getElementById("className");
-    const searchInput = document.getElementById("searchInput");
+   
     const studentNameInput = document.getElementById("studentName");
     const addStudentButton = document.getElementById("addStudentButton");
     const selectedClassName = document.getElementById("selectedClassName");
     const attendanceTableBody = document.querySelector("#attendanceTable tbody");
     const summaryTableBody = document.querySelector("#summaryTable tbody");
+
+    
+    // Get elements
+const searchIcon = document.getElementById('searchIcon');
+const loadingIcon = document.getElementById('loadingIcon');
+const searchInput = document.getElementById('searchInput');
+const searchContainer = document.querySelector('.search-container');
+
+// Event listener for the search icon
+searchIcon.addEventListener('click', function(event) {
+    // Hide the search icon and show the loading icon
+    searchIcon.style.display = 'none';
+    loadingIcon.style.display = 'inline-block';
+
+    // Show the input field and focus on it
+    searchInput.style.display = 'inline-block';
+    searchInput.focus();
+
+    // Stop propagation to prevent triggering the outside click event
+    event.stopPropagation();
+});
+
+// Hide the input field and change back to the search icon when clicking outside
+document.addEventListener('click', function(event) {
+    if (!searchContainer.contains(event.target)) {
+        // Hide the input field
+        searchInput.style.display = 'none';
+        
+        // Hide the loading icon and show the search icon
+        loadingIcon.style.display = 'none';
+        searchIcon.style.display = 'inline-block';
+    }
+});
+
+// Prevent input field clicks from triggering the outside click event
+searchInput.addEventListener('click', function(event) {
+    event.stopPropagation();
+});
 
     let classes = JSON.parse(localStorage.getItem("classes")) || {};
     let currentClass = null;
@@ -232,11 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
             student.status = "";
             saveData();
             displayClass(currentClass);
-        }, 2 * 60 * 1000);
+        }, 1 * 60 * 1000);
     }
 
     resetDailyAttendance();
-    setInterval(resetDailyAttendance, 24 * 60 * 60 * 1000);
+    setInterval(resetDailyAttendance, 15 * 10 * 10 * 1000);
 
     function saveData() {
         localStorage.setItem("classes", JSON.stringify(classes));
@@ -244,3 +282,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// Throttle function to limit the number of times a function can be called
+function throttle(func, wait) {
+    let isThrottled = false;
+    return function(...args) {
+      if (!isThrottled) {
+        func(...args);
+        isThrottled = true;
+        setTimeout(() => isThrottled = false, wait);
+      }
+    };
+  }
+  
+  // Function to check if user is at the bottom of the page
+  function checkScrollPosition() {
+    const documentHeight = document.documentElement.scrollHeight; // Full page height
+    const viewportHeight = window.innerHeight;                     // Viewport height
+    const scrollPosition = window.scrollY;                         // Current scroll position
+  
+    // If the user has scrolled to the bottom of the page
+    if (scrollPosition + viewportHeight >= documentHeight) {
+      footer.style.display = 'block';  // Show the footer when at the bottom
+    } else {
+      footer.style.display = 'none';   // Hide the footer when not at the bottom
+    }
+  }
+  
+  // Listen for the scroll event with throttling
+  window.addEventListener('scroll', throttle(checkScrollPosition, 200));  // Runs at most once every 200ms
+  
