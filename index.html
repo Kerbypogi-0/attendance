@@ -128,7 +128,7 @@
             display: none;
             padding: 2rem;
         }
-
+        
         .class-header {
             margin-bottom: 2rem;
         }
@@ -235,7 +235,54 @@
                 padding: 0.3rem;
                 font-size: 0.8rem;
             }
-        }
+            }
+            .text-animation {
+                font-size: 2rem;
+                font-weight: bold;
+                color:#2c3e50;
+                display: inline-block;
+            }
+
+            .changing-text {
+                display: inline-block;
+                color:#2980b9;
+                animation: fade-in-out 3s ease-in-out infinite;
+            }
+
+            /* Keyframe animation for fading in/out */
+                @keyframes fade-in-out {
+                    0%, 100% { opacity: 0; transform: translateY(20px); }
+                    20%, 80% { opacity: 1; transform: translateY(0); }
+            }
+            .main-content h1 {
+                font-size:50px;
+                font-style: italic;
+                font-weight: 500px;
+                color: #2c3e50;
+            }
+            .class-item.selected {
+                background-color: #c5cae9;
+                border-left: 4px solid #1a237e;
+            }
+            .main-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: calc(100vh - 64px);
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+
+            .class-page {
+                display: none;
+                padding: 2rem;
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+
     </style>
 </head>
 <body>
@@ -243,24 +290,31 @@
         <div class="menu-toggle">
             <i class="fas fa-bars"></i>
         </div>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search classes...">
-        </div>
     </div>
 
     <div class="menu">
         <h2>Classes</h2>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search classes...">
+        </div><br>
         <ul class="class-list"></ul>
+        <button class="delete-class-btn">Delete Selected Class</button>
     </div>
+    
 
     <div class="main-content">
+        <b><h1>Welcome</h1></b><br>
+        <div class="text-animation">
+            Efficiently manage your <span class="changing-text"></span>
+        </div>
+        <br><br><br>
         <button class="add-class-btn">Add Class</button>
     </div>
 
     <div class="class-page">
         <div class="class-header">
-            <h2></h2>
+            <h2></h2><br>
             <button class="add-student-btn">Add Student</button>
             <button class="download-pdf-btn">Download Summary</button>
             <button class="back-to-main">Back to Main</button>
@@ -314,7 +368,51 @@
         const addClassBtn = document.querySelector('.add-class-btn');
         const mainContent = document.querySelector('.main-content');
         const classPage = document.querySelector('.class-page');
-        const classList = document.querySelector('.class-list');
+        
+        // Function to navigate back to the main page
+        document.querySelector('.back-to-main').addEventListener('click', () => {
+            const mainContent = document.querySelector('.main-content');
+            const classPage = document.querySelector('.class-page');
+
+        // Show main content and hide class page
+        mainContent.style.display = 'flex';
+        classPage.style.display = 'none';
+
+        // Reset any dynamic styles applied to the main content
+        resetMainPageStyles();
+            currentClass = null;
+        });
+
+        // Function to reset the main page styles
+        function resetMainPageStyles() {
+            const welcomeText = document.querySelector('.welcome-text');
+            const addClassBtn = document.querySelector('.add-class-btn');
+
+        // Reset any styles that may have changed
+        if (welcomeText) {
+            welcomeText.style.marginBottom = '2rem';
+            welcomeText.style.color = '#1a237e';
+        }
+        if (addClassBtn) {
+            addClassBtn.style.display = 'inline-block';
+            addClassBtn.style.transform = 'translateY(0)';
+            }   
+        }   
+
+      
+
+        const words = ["Attendance", "Classes", "Check-in", "Monitoring","Participation Rate"];
+        let currentIndex = 0;
+        const changingTextElement = document.querySelector(".changing-text");
+
+        function changeText() {
+        changingTextElement.textContent = words[currentIndex];
+        currentIndex = (currentIndex + 1) % words.length;
+        }
+
+        // Change the text every 3 seconds (matches the CSS animation duration)
+        setInterval(changeText, 3000);
+        changeText(); // Initial call to set the first word
 
         // Menu Toggle
         menuToggle.addEventListener('click', () => {
@@ -416,6 +514,93 @@
                 classList.appendChild(li);
             });
         }
+
+            const deleteClassBtn = document.querySelector('.delete-class-btn');
+        const classList = document.querySelector('.class-list');
+        let selectedClass = null;
+        let longPressTimeout = null;
+
+        // Function to update the class list
+        function updateClassList() {
+            classList.innerHTML = '';
+
+        if (Object.keys(classes).length === 0) {
+            classList.innerHTML = '<li>No classes available</li>';
+        return;
+        }
+
+        // Populate the list of classes
+            Object.keys(classes).forEach(className => {
+        const li = document.createElement('li');
+        li.className = 'class-item';
+        li.textContent = className;
+
+        // Click event to open the class
+        li.addEventListener('click', () => {
+            if (!selectedClass) {
+                currentClass = className;
+                showClassPage(className);
+            }
+        });
+
+        // Long press event to select the class
+        li.addEventListener('mousedown', () => {
+            longPressTimeout = setTimeout(() => {
+                selectedClass = className;
+                highlightSelectedClass(li);
+            }, 800); // Long press threshold: 800ms
+        });
+
+        // Clear timeout if mouse is released before the threshold
+        li.addEventListener('mouseup', () => clearTimeout(longPressTimeout));
+        li.addEventListener('mouseleave', () => clearTimeout(longPressTimeout));
+
+        classList.appendChild(li);
+        });
+        }
+
+        // Function to highlight the selected class
+        function highlightSelectedClass(selectedLi) {
+        const allItems = document.querySelectorAll('.class-item');
+            allItems.forEach(item => item.classList.remove('selected'));
+            selectedLi.classList.add('selected');
+        }
+
+        // Delete selected class when "Delete Selected Class" button is clicked
+        deleteClassBtn.addEventListener('click', () => {
+            if (selectedClass && confirm(`Are you sure you want to delete the class "${selectedClass}"?`)) {
+                deleteClass(selectedClass);
+            } else if (!selectedClass) {
+                alert("Please long press a class to select it for deletion.");
+            }
+        });
+
+            // Function to delete the class from storage
+            function deleteClass(className) {
+                delete classes[className];
+                localStorage.setItem('classes', JSON.stringify(classes));
+                updateClassList();
+                selectedClass = null;
+            }
+
+            // Function to show the class page
+                function showClassPage(className) {
+                    const mainContent = document.querySelector('.main-content');
+                    const classPage = document.querySelector('.class-page');
+                    const classTitle = classPage.querySelector('h2');
+
+                mainContent.style.display = 'none';
+                classPage.style.display = 'block';
+                classTitle.textContent = className;
+                updateStudentList();
+            }
+
+            // Initial load
+            document.addEventListener('DOMContentLoaded', () => {
+                updateClassList();
+            });
+
+
 
         // Show Class Page
         function showClassPage(className) {
